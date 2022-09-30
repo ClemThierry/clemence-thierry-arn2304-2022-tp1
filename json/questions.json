@@ -1,0 +1,37 @@
+[{
+        "question": "Qu'est qui est écrit ?",
+        "type": "text",
+        "choices": [
+            "gafjomh",
+            "caftamh",
+            "ca€t0mh",
+            "ga€j0mh"
+        ],
+        "image": "../images/captcha.png",
+        "answer": 0
+    },
+    {
+        "question": "Selectionne les cookies non-chat :",
+        "type": "image",
+        "choices": [
+            "images/chats/chat1.jpg",
+            "images/chats/chat2.jpg",
+            "images/chats/chat3.jpg",
+            "images/chats/chat4.jpg"
+        ],
+        "image": "",
+        "answer": 3
+    },
+    {
+        "question": " How do you write 'Hello World' in an alert box?",
+        "type": "text",
+        "choices": [
+            "script",
+            "javascript",
+            "js",
+            "scripting"
+        ],
+        "image": "",
+        "answer": 2
+    }
+]
