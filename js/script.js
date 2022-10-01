@@ -3,6 +3,7 @@ const questionDiv = document.querySelector("#PNJdialogue");
 let questions = [];
 let index = 0;
 let nbErreur = 0;
+let choiceClicked;
 
 fetch('../json/questions.json')
     .then((response) => response.json())
@@ -51,22 +52,20 @@ function askQuestion(askingQuestion) {
 }
 
 function isAnswerCorrect() {
+
+
     if (this.children[0]) {
-        if (this.children[0].getAttribute('src') == questions[index].choices[questions[index].answer]) {
-            console.log("sale humain");
-            nbErreur++;
-        } else {
-            console.log("bravo tu n'es pas un humain");
-            nextQuestion();
-        }
+        choiceClicked = this.children[0].getAttribute('src');
     } else {
-        if (this.innerHTML == questions[index].choices[questions[index].answer]) {
-            console.log("sale humain");
-            nbErreur++;
-        } else {
-            console.log("bravo tu n'es pas un humain");
-            nextQuestion();
-        }
+        choiceClicked = this.innerHTML;
+    }
+
+    if (questions[index].answer.includes(questions[index].choices.indexOf(choiceClicked))) {
+        console.log("bravo tu n'es pas un humain");
+        nextQuestion();
+    } else {
+        console.log("sale humain");
+        nbErreur++;
     }
 }
 

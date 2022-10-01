@@ -8,10 +8,14 @@
             "ga€j0mh"
         ],
         "image": "../images/captcha.png",
-        "answer": 0
+        "answer": [
+            1,
+            2,
+            3
+        ]
     },
     {
-        "question": "Selectionne les cookies non-chat :",
+        "question": "Selectionne une image de cookies qui ne sont pas des chats :",
         "type": "image",
         "choices": [
             "images/chats/chat1.jpg",
@@ -20,18 +24,24 @@
             "images/chats/chat4.jpg"
         ],
         "image": "",
-        "answer": 3
+        "answer": [
+            0,
+            1,
+            2
+        ]
     },
     {
-        "question": " How do you write 'Hello World' in an alert box?",
+        "question": "Convertis 110011 en langage humain ?",
         "type": "text",
         "choices": [
-            "script",
-            "javascript",
-            "js",
-            "scripting"
+            "50",
+            "51",
+            "52",
+            "53"
         ],
         "image": "",
-        "answer": 2
+        "answer": [
+            1
+        ]
     }
 ]
