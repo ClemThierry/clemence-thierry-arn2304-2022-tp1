@@ -7,6 +7,64 @@ body {
     display: flex;
     /* font-family: 'Play', sans-serif; */
     font-family: 'Silkscreen', cursive;
+    overflow: hidden;
+}
+
+#accueil {
+    display: flex;
+}
+
+.door {
+    background-color: rgb(155, 233, 255);
+    background-image: url("../images/decor.png");
+    height: 100vh;
+    width: 50vw;
+    position: absolute;
+    z-index: 1;
+}
+
+#leftDoor {
+    left: 0;
+    border-right: solid 20px rgb(44, 138, 138);
+}
+
+#rightDoor {
+    right: 0;
+    border-left: solid 20px rgb(44, 138, 138);
+}
+
+#startGame {
+    position: absolute;
+    left: 40vw;
+    right: 40vw;
+    top: 50vh;
+    height: 70px;
+    z-index: 2;
+    transition-duration: 0.4s;
+    border-radius: 20px;
+    border: unset;
+    background-color: rgb(44, 138, 138);
+    font-family: 'Silkscreen', cursive;
+    font-size: 30px;
+    color: white;
+}
+
+@keyframes leftDoorOpening {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes rightDoorOpening {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
 }
 
 #game {

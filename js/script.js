@@ -77,3 +77,13 @@ function nextQuestion() {
         console.log("Plus de questions.");
     }
 }
+
+document.querySelector("#startGame").addEventListener('click', function() {
+    document.querySelector("#leftDoor").style.animation = "leftDoorOpening 1s linear forwards";
+    document.querySelector("#rightDoor").style.animation = "rightDoorOpening 1s linear forwards";
+    document.querySelector("#startGame").style.opacity = "0";
+});
+
+document.querySelector("#rightDoor").addEventListener("animationend", function() {
+    document.querySelector("#accueil").style.display = "none";
+}, false);
