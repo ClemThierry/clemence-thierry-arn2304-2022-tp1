@@ -24,11 +24,11 @@
     <div id="accueil">
         <div id="leftDoor" class="door"></div>
         <div id="rightDoor" class="door"></div>
-        <button id="startGame">Jouer</button>
+        <button id="startGame" class="interaction">Jouer</button>
     </div>
     <div id="messageIntro">
         <h1>Vous avez un message</h1>
-        <img src="images/message.png" alt="enveloppe" />
+        <img src="images/message.png" alt="enveloppe" class="interaction" />
         <div id="contenuMessage">
             <p><span class="emphasize">Félicitation</span>, votre couple a été choisi pour concevoir la nouvelle génération de robots de l’année ! </p>
             <p>Comme le veut le protocole vous devez :</p>
@@ -38,24 +38,28 @@
                 <li>Assembler le nouveau membre de votre famille</li>
             </ol>
             <p>Vous devez effectuer cette tâche dans les <span class="emphasize">10 </span>minutes suivant l’ouverture de ce message.</p>
-            <button class="next">Bien reçu</button>
+            <button class="next interaction">Bien reçu</button>
         </div>
     </div>
     <div id="firstPart">
-        <div class="firstPlan" id="accueilText">
+        <div id="accueilText" class="firstPlan">
             <h1>Bonjour à toi et bienvenue chez Robabies !!!</h1>
             <p>Avant de te laisse faire tes achats tu vas devoir me prouver que tu es bien un robot. Pour ça rien de plus simple ! Je vais écrire des questions au tableau et tu devras y répondre.</p>
             <p><span class="emphasize">Attention !</span> Si tu fais 2 fautes j'appelerais le service anti-humains pour qu'ils t'emmènent.</p>
-            <button class="next">Bien reçu</button>
+            <button class="next interaction">Bien reçu</button>
         </div>
         <img class="firstPlan" id="marchandFirstPlan" src="images/marchand0.png" alt="robot marchand" />
         <div id="game">
-            <div id="blackBoard">
+            <img id="marchandInGame" src="images/marchand0.png" alt="robot marchand" />
+            <div id="blackBoard" class="quiz">
             </div>
-            <div id="MyDialogue">
+            <img src="images/blueprint.png" alt="plan" id="plan" class="none" />
+            <div id="MyDialogue" class="interaction quiz">
             </div>
         </div>
         <!-- <div id="inventory"></div> -->
+    </div>
+    <div id="endMessage">
     </div>
     <script src="js/script.js"></script>
 </body>

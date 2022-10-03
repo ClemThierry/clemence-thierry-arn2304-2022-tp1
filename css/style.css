@@ -71,110 +71,7 @@ body {
 }
 
 
-/*Partie1*/
-
-#firstPart {
-    height: 100%;
-    width: 100%;
-}
-
-#marchandFirstPlan {
-    background-color: rgba(0, 0, 0, 0.7);
-    min-width: 100%;
-    min-height: 100%;
-    padding: 20px;
-    z-index: 1;
-}
-
-.firstPlan {
-    position: absolute;
-}
-
-#accueilText {
-    z-index: 2;
-    text-align: center;
-    color: rgb(255, 255, 255);
-    background-color: rgba(0, 0, 50, 0.6);
-    border-radius: 20px;
-    padding: 20px;
-    top: 30px;
-    left: 30px;
-    right: 30px;
-}
-
-#game {
-    height: 768px;
-    width: 960px;
-    margin: auto;
-    margin-top: 60px;
-    background-image: url("../images/fond.png");
-    background-size: cover;
-    background-color: plum;
-    border-radius: 70px;
-    border: 10px solid rgb(92, 92, 92);
-    position: relative;
-    overflow: hidden;
-}
-
-#blackBoard {
-    font-family: 'Gloria Hallelujah', cursive;
-    height: 160px;
-    width: 320px;
-    position: absolute;
-    left: 321px;
-    top: 119px;
-    background-image: url("../images/tableau.png");
-}
-
-#blackBoard>p {
-    text-align: center;
-    color: white;
-    font-size: 15px;
-    padding: 25px;
-    padding-top: 10px;
-    padding-bottom: 2px;
-    margin: 0;
-}
-
-#blackBoard>img {
-    margin-left: 73px;
-}
-
-#MyDialogue {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    /* column-gap: 10px;
-    row-gap: 10px; */
-    text-align: center;
-    background-color: rgba(33, 5, 59, 0.7);
-}
-
-#MyDialogue>.choices>img {
-    max-width: 90px;
-    max-height: 90px;
-}
-
-.choices {
-    color: white;
-    /* background-color: rgba(127, 255, 212, 0.5); */
-    padding: 4px;
-    margin: 4px;
-    align-self: center;
-    justify-self: stretch;
-}
-
-.choices:hover {
-    color: white;
-    background-color: rgba(127, 204, 255, 0.7);
-}
-
-.none {
-    display: none !important;
-}
+/*Introduction (message)*/
 
 @keyframes wiggle {
     0% {
@@ -239,8 +136,182 @@ body {
     padding-left: 10vw;
 }
 
+
+/*Partie1*/
+
+#firstPart {
+    height: 100%;
+    width: 100%;
+}
+
+#marchandFirstPlan {
+    background-color: rgba(0, 0, 0, 0.7);
+    min-width: 100%;
+    min-height: 100%;
+    padding: 20px;
+    z-index: 1;
+}
+
+#accueilText {
+    z-index: 2;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 50, 0.6);
+    border-radius: 20px;
+    padding: 20px;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    position: absolute;
+}
+
+
+/*Partie principale du jeu*/
+
+#game {
+    height: 768px;
+    width: 960px;
+    margin: auto;
+    margin-top: 60px;
+    background-image: url("../images/fond.png");
+    background-size: cover;
+    background-color: plum;
+    border-radius: 70px;
+    border: 10px solid rgb(92, 92, 92);
+    position: relative;
+    overflow: hidden;
+}
+
+#marchandInGame {
+    /* z-index: 30; */
+    position: absolute;
+    height: 390px;
+    bottom: 120px;
+    right: 50px;
+    animation: floatingMarchand 2s ease-in-out infinite;
+}
+
+@keyframes floatingMarchand {
+    from {
+        bottom: 150px;
+    }
+    50% {
+        bottom: 170px;
+    }
+    to {
+        bottom: 150px;
+    }
+}
+
+
+/*Quiz*/
+
+#blackBoard {
+    font-family: 'Gloria Hallelujah', cursive;
+    height: 160px;
+    width: 320px;
+    position: absolute;
+    left: 321px;
+    top: 119px;
+    background-image: url("../images/tableau.png");
+}
+
+#blackBoard>p {
+    text-align: center;
+    color: white;
+    font-size: 15px;
+    padding: 25px;
+    padding-top: 10px;
+    padding-bottom: 2px;
+    margin: 0;
+}
+
+#blackBoard>img {
+    margin-left: 73px;
+}
+
+#MyDialogue {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* column-gap: 10px;
+    row-gap: 10px; */
+    text-align: center;
+    background-color: rgba(33, 5, 59, 0.7);
+}
+
+#MyDialogue>.choices>img {
+    max-width: 90px;
+    max-height: 90px;
+}
+
+.choices {
+    color: white;
+    /* background-color: rgba(127, 255, 212, 0.5); */
+    padding: 4px;
+    margin: 4px;
+    align-self: center;
+    justify-self: stretch;
+}
+
+.choices:hover {
+    color: white;
+    background-color: rgba(127, 204, 255, 0.7);
+}
+
+
+/*Impression du plan*/
+
+#imprimante {
+    position: absolute;
+    bottom: 78px;
+    left: -32px;
+}
+
+
+/* #imprimante:hover {
+    transform: scale(1.05);
+} */
+
+#plan {
+    position: absolute;
+    bottom: 338px;
+    left: 119px;
+    z-index: 2;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition-duration: 1s;
+}
+
+
+/*Perdu*/
+
+#endMessage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    padding: 60px;
+    padding-top: 20%;
+    background-color: rgba(33, 5, 59, 0.85);
+    color: white;
+}
+
+
+/*styles communs*/
+
 .emphasize {
     font-size: 1.5em;
+    color: yellow;
+}
+
+.none {
+    display: none !important;
 }
 
 .next {
@@ -255,4 +326,12 @@ body {
     color: rgb(44, 138, 138);
     opacity: 0;
     transition-duration: 1s;
+}
+
+.interaction {
+    cursor: pointer;
+}
+
+.interaction:hover {
+    transform: scale(1.05);
 }

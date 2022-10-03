@@ -1,4 +1,8 @@
+/*Partie Intro*/
+
 document.querySelector("#firstPart").classList.add("none");
+document.querySelector("#endMessage").classList.add("none");
+
 
 document.querySelector("#startGame").addEventListener('click', function() {
     document.querySelector("#leftDoor").style.animation = "leftDoorOpening 1s linear forwards";
@@ -41,6 +45,8 @@ document.querySelector("#firstPart .next").addEventListener("click", function() 
         element.classList.add("none");
     })
 });
+
+/*Partie quizz*/
 
 const optionsDiv = document.querySelector("#MyDialogue");
 const questionDiv = document.querySelector("#blackBoard");
@@ -93,8 +99,6 @@ function askQuestion(askingQuestion) {
 }
 
 function isAnswerCorrect() {
-
-
     if (this.children[0]) {
         choiceClicked = this.children[0].getAttribute('src');
     } else {
@@ -107,6 +111,21 @@ function isAnswerCorrect() {
     } else {
         console.log("sale humain");
         nbErreur++;
+        switch (nbErreur) {
+            case 1:
+                document.querySelector("#marchandInGame").setAttribute("src", "images/marchand1.png");
+                break;
+            case 2:
+                document.querySelector("#marchandInGame").setAttribute("src", "images/marchand2.png");
+                endGameFail();
+                break;
+
+            default:
+                break;
+        }
+        // if (nbErreur >= 2) {
+        //     alert("c'est perdu");
+        // }
     }
 }
 
@@ -115,6 +134,44 @@ function nextQuestion() {
         index++;
         askQuestion(questions[index]);
     } else {
-        console.log("Plus de questions.");
+        //next part
+        document.querySelectorAll(".quiz").forEach(function(element) {
+            element.classList.add("none");
+        });
+        printPlan();
     }
+}
+
+function endGameFail() {
+    document.querySelector("#endMessage").classList.remove("none");
+    document.querySelector("#endMessage").innerHTML = "<p>Malhereusement pour toi tu as perdu. Tu n'étais pas digne d'avoir un bébé robot.</p><p>Mais tu peux toujours rééssayer si tu as envie ! (ou juste quitter le jeu aussi...)</p><button id='replayButton'>Replay</button>";
+    document.querySelector("#replayButton").addEventListener("click", function() {
+        location.reload();
+    });
+}
+
+function printPlan() {
+    document.querySelector("#game").innerHTML += "<img src=\"images/imprimante.png\" alt=\"imprimante\" id=\"imprimante\" class=\"interaction\"/>";
+    document.querySelector("#imprimante").addEventListener("click", function() {
+        //ghbjn
+        document.querySelector("#plan").classList.remove("none");
+        setTimeout(function() {
+            document.querySelector("#plan").style.transform = "scaleY(1)";
+        }, 500);
+
+        setTimeout(function() {
+            document.querySelector("#plan").style.transform = "scaleY(0.5)";
+            document.querySelector("#plan").addEventListener("click", function() {
+                this.classList.add("none");
+                clearInterval(planMvt);
+            });
+            const planMvt = setInterval(function() {
+                let left = Math.floor(Math.random() * (300 - 1));
+                let bottom = Math.floor(Math.random() * (300 - 1));
+                console.log("ok");
+
+                document.querySelector("#plan").style.transform = "translate(" + left + "px, " + bottom + "px)";
+            }, 800);
+        }, 1000);
+    })
 }
