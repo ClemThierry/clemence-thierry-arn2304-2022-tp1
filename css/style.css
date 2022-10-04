@@ -8,6 +8,7 @@ body {
     /* font-family: 'Play', sans-serif; */
     font-family: 'Silkscreen', cursive;
     overflow: hidden;
+    /* position: relative; */
 }
 
 
@@ -142,6 +143,7 @@ body {
 #firstPart {
     height: 100%;
     width: 100%;
+    position: relative;
 }
 
 #marchandFirstPlan {
@@ -177,7 +179,7 @@ body {
     background-size: cover;
     background-color: plum;
     border-radius: 70px;
-    border: 10px solid rgb(92, 92, 92);
+    border: 10px solid #383875;
     position: relative;
     overflow: hidden;
 }
@@ -201,6 +203,53 @@ body {
     to {
         bottom: 150px;
     }
+}
+
+#sideBarre {
+    position: absolute;
+    top: 60px;
+    bottom: 60px;
+    right: 100px;
+    width: 300px;
+}
+
+#sideBarre>* {
+    background-color: #a5d4e4;
+    border: 10px solid #383875;
+    border-radius: 70px;
+    color: #383875;
+}
+
+#inventory {
+    /* position: absolute;
+    top: 50px;
+    right: 100px; */
+    margin-top: 30px;
+    padding: 30px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    /* row-gap: 10px; */
+}
+
+#inventory>div {
+    display: flex;
+    margin: auto;
+    width: 100%;
+}
+
+#inventory>div>p {
+    align-self: center;
+    /* text-decoration: line-through; */
+}
+
+.imagesInventaire {
+    margin-right: 20px;
+}
+
+#compteRebours {
+    text-align: center;
+    font-size: 2em;
 }
 
 
@@ -286,6 +335,12 @@ body {
     transition-duration: 1s;
 }
 
+#huile {
+    position: absolute;
+    top: 291px;
+    left: 409px;
+}
+
 
 /*Perdu*/
 
@@ -334,4 +389,12 @@ body {
 
 .interaction:hover {
     transform: scale(1.05);
+}
+
+.uncollected {
+    filter: grayscale(100%);
+}
+
+.collected {
+    text-decoration: line-through;
 }

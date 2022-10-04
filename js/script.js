@@ -1,4 +1,13 @@
 /*Partie Intro*/
+let secondes = 0;
+let minutes = 5;
+
+let rightDoor = document.querySelector("#rightDoor");
+let letter = document.querySelector("#messageIntro > img");
+let messageBebe = document.querySelector("#contenuMessage");
+let buttonMessageBebe = document.querySelector("#contenuMessage>button");
+let dialogueMarchandIntro = document.querySelector("#messageIntro");
+let buttonDialogueMarchandIntro = document.querySelector("#firstPart .next");
 
 document.querySelector("#firstPart").classList.add("none");
 document.querySelector("#endMessage").classList.add("none");
@@ -6,41 +15,42 @@ document.querySelector("#endMessage").classList.add("none");
 
 document.querySelector("#startGame").addEventListener('click', function() {
     document.querySelector("#leftDoor").style.animation = "leftDoorOpening 1s linear forwards";
-    document.querySelector("#rightDoor").style.animation = "rightDoorOpening 1s linear forwards";
-    document.querySelector("#startGame").style.opacity = "0";
+    rightDoor.style.animation = "rightDoorOpening 1s linear forwards";
+    this.style.opacity = "0";
 });
 
-document.querySelector("#rightDoor").addEventListener("animationend", function() {
+rightDoor.addEventListener("animationend", function() {
     document.querySelector("#accueil").style.display = "none";
-    document.querySelector("#messageIntro > img").style.animation = "wiggle 1s linear infinite";
+    letter.style.animation = "wiggle 1s linear infinite";
 }, false);
 
-document.querySelector("#messageIntro > img").addEventListener("click", function() {
+letter.addEventListener("click", function() {
     this.classList.add("none");
     document.querySelector("#messageIntro > h1").classList.add("none");
-    document.querySelector("#contenuMessage").classList.remove("none");
+    messageBebe.classList.remove("none");
 
-    // document.querySelector("#contenuMessage").style.height = "50%";
-    document.querySelector("#contenuMessage").style.transform = "scale(1)";
+    // messageBebe.style.height = "50%";
+    messageBebe.style.transform = "scale(1)";
     setTimeout(function() {
-        document.querySelector("#contenuMessage>button").style.opacity = "1";
+        buttonMessageBebe.style.opacity = "1";
     }, 8000);
 });
 
-document.querySelector("#contenuMessage>button").addEventListener("click", function() {
-    document.querySelector("#messageIntro").style.opacity = "0";
+buttonMessageBebe.addEventListener("click", function() {
+    dialogueMarchandIntro.style.opacity = "0";
     setTimeout(function() {
-        document.querySelector("#messageIntro").classList.add("none");
+        dialogueMarchandIntro.classList.add("none");
         document.querySelector("#firstPart").classList.remove("none");
     }, 200);
 
     setTimeout(function() {
-        document.querySelector("#firstPart .next").style.opacity = "1";
+        buttonDialogueMarchandIntro.style.opacity = "1";
     }, 5000);
 });
 
-document.querySelector("#firstPart .next").addEventListener("click", function() {
+buttonDialogueMarchandIntro.addEventListener("click", function() {
     // document.querySelector("#firstPart").classList.add("none");
+    departCompteRebours();
     document.querySelectorAll(".firstPlan").forEach(function(element) {
         element.classList.add("none");
     })
@@ -59,15 +69,15 @@ fetch('../json/questions.json')
     .then((response) => response.json())
     .then((data) => {
         questions = data;
-        startGame();
+        startQuiz();
     })
     .catch((err) => {
         console.error(err);
     });
 
-document.querySelector("#blackBoard").addEventListener("click", isAnswerCorrect);
+// document.querySelector("#blackBoard").addEventListener("click", isAnswerCorrect);
 
-function startGame() {
+function startQuiz() {
     askQuestion(questions[index]);
     // if (isAnswerCorrect) {
     //     alert("dommage")
@@ -106,7 +116,6 @@ function isAnswerCorrect() {
     }
 
     if (questions[index].answer.includes(questions[index].choices.indexOf(choiceClicked))) {
-        console.log("bravo tu n'es pas un humain");
         nextQuestion();
     } else {
         console.log("sale humain");
@@ -174,4 +183,45 @@ function printPlan() {
             }, 800);
         }, 1000);
     })
+}
+
+document.querySelector("#huile").addEventListener("click", function() {
+    this.classList.add("none");
+    document.querySelector("#huileListe").classList.add("collected");
+    document.querySelector("#huileListe>img").classList.remove("uncollected");
+});
+
+document.querySelector("#ecrous").addEventListener("click", function() {
+    this.classList.add("none");
+    document.querySelector("#ecrousListe").classList.add("collected");
+    document.querySelector("#ecrousListe>img").classList.remove("uncollected");
+});
+
+document.querySelector("#metal").addEventListener("click", function() {
+    this.classList.add("none");
+    document.querySelector("#metalListe").classList.add("collected");
+    document.querySelector("#metalListe>img").classList.remove("uncollected");
+});
+
+function departCompteRebours() {
+    const compteRebours = setInterval(function() {
+        if (secondes == 0) {
+            secondes = 60;
+            minutes--;
+        }
+        secondes--;
+        console.log(minutes + " min " + secondes + " s");
+        document.querySelector("#compteRebours").innerHTML = "<p>" + formatNumerique(minutes) + ":" + formatNumerique(secondes) + "</p>";
+        if (minutes == 0) {
+            document.querySelector("#compteRebours").style.color = "red;"
+        }
+    }, 1000);
+
+    setTimeout(function() {
+        endGameFail();
+    }, 300000);
+}
+
+function formatNumerique(n) {
+    return n > 9 ? "" + n : "0" + n;
 }
