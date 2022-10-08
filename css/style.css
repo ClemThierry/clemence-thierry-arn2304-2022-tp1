@@ -1,14 +1,39 @@
+:root {
+    --lightPurple: #404582;
+    --purple: #383875;
+    --darkPurple: #252a52;
+    --veryLightBlue: #bbecff;
+    --lightBlue: #6ab3d0;
+    --blue: #2e84a3;
+    --darkBlue: #12698b;
+    --yellow: #fba542;
+    --darkYellow: #d07a20;
+    --textBackground: #252a52c0;
+}
+
 body {
     margin: 0;
     height: 100vh;
     width: 100vw;
     background-image: url("../images/decor.png");
-    background-color: rgb(155, 233, 255);
     display: flex;
     /* font-family: 'Play', sans-serif; */
     font-family: 'Silkscreen', cursive;
     overflow: hidden;
     /* position: relative; */
+}
+
+p,
+li {
+    font-size: 1.2em;
+}
+
+h1 {
+    font-size: 1.8em;
+}
+
+h2 {
+    font-size: 1.6em;
 }
 
 
@@ -19,22 +44,22 @@ body {
 }
 
 .door {
-    background-color: rgb(155, 233, 255);
     background-image: url("../images/decor.png");
     height: 100vh;
     width: 50vw;
+    background-color: var(--lightBlue);
     position: absolute;
     z-index: 3;
 }
 
 #leftDoor {
     left: 0;
-    border-right: solid 20px rgb(44, 138, 138);
+    border-right: solid 20px var(--darkBlue);
 }
 
 #rightDoor {
     right: 0;
-    border-left: solid 20px rgb(44, 138, 138);
+    border-left: solid 20px var(--darkBlue);
 }
 
 #startGame {
@@ -47,10 +72,14 @@ body {
     transition-duration: 0.4s;
     border-radius: 20px;
     border: unset;
-    background-color: rgb(44, 138, 138);
+    background-color: var(--lightPurple);
     font-family: 'Silkscreen', cursive;
     font-size: 30px;
     color: white;
+}
+
+#startGame:hover {
+    background-color: var(--lightPurple);
 }
 
 @keyframes leftDoorOpening {
@@ -97,7 +126,7 @@ body {
 }
 
 #messageIntro {
-    background-color: rgba(0, 0, 47, 0.8);
+    background-color: var(--textBackground);
     height: 100%;
     width: 100%;
     color: white;
@@ -140,25 +169,23 @@ body {
 
 /*Partie1*/
 
-#firstPart {
-    height: 100%;
-    width: 100%;
-    position: relative;
+#messageMarchand {
+    background-color: var(--textBackground);
+    display: flex;
+    width: 100vw;
 }
 
 #marchandFirstPlan {
-    background-color: rgba(0, 0, 0, 0.7);
-    min-width: 100%;
-    min-height: 100%;
+    /* background-color: rgba(0, 0, 0, 0.7); */
     padding: 20px;
-    z-index: 1;
+    margin: auto;
 }
 
 #accueilText {
     z-index: 2;
     text-align: center;
     color: rgb(255, 255, 255);
-    background-color: rgba(0, 0, 50, 0.6);
+    background-color: var(--textBackground);
     border-radius: 20px;
     padding: 20px;
     top: 30px;
@@ -167,30 +194,65 @@ body {
     position: absolute;
 }
 
+#mainPart {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    column-gap: 10px;
+    row-gap: 10px;
+    padding: 10px;
+    transition-duration: 2s;
+}
+
 
 /*Partie principale du jeu*/
 
 #game {
     height: 768px;
     width: 960px;
-    margin: auto;
-    margin-top: 60px;
+    /* margin: auto; */
+    /* margin-top: 60px; */
+    grid-column: 2;
+    grid-row: 2;
+    place-self: center;
     background-image: url("../images/fond.png");
     background-size: cover;
-    background-color: plum;
     border-radius: 70px;
-    border: 10px solid #383875;
+    border: 10px solid var(--darkBlue);
     position: relative;
     overflow: hidden;
 }
 
 #marchandInGame {
-    /* z-index: 30; */
     position: absolute;
-    height: 390px;
     bottom: 120px;
     right: 50px;
     animation: floatingMarchand 2s ease-in-out infinite;
+    z-index: 2;
+}
+
+#marchandInGame>img {
+    height: 390px;
+}
+
+#marchandInGame>p {
+    position: absolute;
+    right: 0px;
+    top: -40px;
+    background-color: var(--textBackground);
+    color: white;
+    padding: 10px;
+    border-radius: 30px;
+    max-width: 50%;
+    /* margin: auto; */
+    margin-left: 50%;
+    text-align: center;
+    transform-origin: center;
+    transition-duration: 0.6s;
+    opacity: 0;
 }
 
 @keyframes floatingMarchand {
@@ -205,19 +267,26 @@ body {
     }
 }
 
-#sideBarre {
-    position: absolute;
-    top: 60px;
-    bottom: 60px;
-    right: 100px;
+.sideBarre {
+    grid-row: 2;
     width: 300px;
+    align-self: start;
+    justify-self: center;
 }
 
-#sideBarre>* {
-    background-color: #a5d4e4;
-    border: 10px solid #383875;
+.sideBarre>* {
+    background-color: var(--veryLightBlue);
+    border: 10px solid var(--darkBlue);
     border-radius: 70px;
-    color: #383875;
+    color: var(--darkBlue);
+}
+
+#leftSideBarre>div {
+    padding: 15px;
+}
+
+#rightSideBarre {
+    grid-column: 3;
 }
 
 #inventory {
@@ -229,6 +298,8 @@ body {
     min-height: 300px;
     display: flex;
     flex-direction: column;
+    transform: scaleY(0);
+    transition-duration: 0.4s;
     /* row-gap: 10px; */
 }
 
@@ -249,7 +320,7 @@ body {
 
 #compteRebours {
     text-align: center;
-    font-size: 2em;
+    font-size: 1.5em;
 }
 
 
@@ -286,10 +357,9 @@ body {
     bottom: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    /* column-gap: 10px;
-    row-gap: 10px; */
     text-align: center;
-    background-color: rgba(33, 5, 59, 0.7);
+    background-color: var(--textBackground);
+    z-index: 3;
 }
 
 #MyDialogue>.choices>img {
@@ -307,8 +377,8 @@ body {
 }
 
 .choices:hover {
-    color: white;
-    background-color: rgba(127, 204, 255, 0.7);
+    color: var(--purple);
+    background-color: var(--veryLightBlue);
 }
 
 
@@ -341,6 +411,19 @@ body {
     left: 409px;
 }
 
+#ecrous {
+    position: absolute;
+    left: 61px;
+    top: 52px;
+}
+
+
+/*Récup éléments*/
+
+.collectibles {
+    z-index: 3;
+}
+
 
 /*Perdu*/
 
@@ -352,9 +435,18 @@ body {
     bottom: 0;
     text-align: center;
     padding: 60px;
-    padding-top: 20%;
-    background-color: rgba(33, 5, 59, 0.85);
+    /* padding-top: 20%; */
+    background-color: var(--textBackground);
     color: white;
+    z-index: 4;
+    opacity: 0;
+    transition-duration: 2s;
+    display: flex;
+    flex-direction: column;
+}
+
+#endMessage>* {
+    margin: auto;
 }
 
 
@@ -362,7 +454,7 @@ body {
 
 .emphasize {
     font-size: 1.5em;
-    color: yellow;
+    color: var(--yellow);
 }
 
 .none {
@@ -370,7 +462,7 @@ body {
 }
 
 .next {
-    background-color: rgb(240, 240, 137);
+    background-color: var(--darkYellow);
     padding: 15px;
     width: fit-content;
     border-radius: 20px;
@@ -378,7 +470,7 @@ body {
     font-family: 'Silkscreen', cursive;
     margin: auto;
     margin-top: 20px;
-    color: rgb(44, 138, 138);
+    color: var(--purple);
     opacity: 0;
     transition-duration: 1s;
 }

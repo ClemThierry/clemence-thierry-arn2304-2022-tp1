@@ -1,1 +1,3 @@
-# clemence-thierry-arn2304-2022-tp1
+## Robaby
+
+But du jeu : concevoir un bébé robot

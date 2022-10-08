@@ -1,0 +1,71 @@
+[{
+        "marchand": "Ne perd pas ton temps à discuter. On est pas des humains haha.",
+        "joueur": [
+            "Bien reçu"
+        ],
+        "next": [
+            0
+        ],
+        "isNext": false
+    },
+    {
+        "marchand": "Tu as besoin de quelque chose ?",
+        "joueur": [
+            "Oui",
+            "Non"
+        ],
+        "next": [
+            2,
+            5
+        ],
+        "isNext": true
+    },
+    {
+        "marchand": "De quoi ?",
+        "joueur": [
+            "Une carte mère.",
+            "Du métal."
+        ],
+        "next": [
+            6,
+            3
+        ],
+        "isNext": true
+    },
+    {
+        "marchand": "Voilà pour toi !",
+        "joueur": [
+            "Merci"
+        ],
+        "next": [
+            4
+        ],
+        "isNext": true
+    },
+    {
+        "marchand": "Au revoir.",
+        "joueur": [],
+        "next": [],
+        "isNext": false
+    },
+    {
+        "marchand": "Ne traîne pas alors !",
+        "joueur": [
+            "Bien reçu"
+        ],
+        "next": [
+            1
+        ],
+        "isNext": false
+    },
+    {
+        "marchand": "Je ne suis pas sûr que ce soit sur ta liste.",
+        "joueur": [
+            "C'est vrai."
+        ],
+        "next": [
+            1
+        ],
+        "isNext": false
+    }
+]

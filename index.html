@@ -21,12 +21,12 @@
 </head>
 
 <body>
-    <div id="accueil">
+    <section id="accueil">
         <div id="leftDoor" class="door"></div>
         <div id="rightDoor" class="door"></div>
         <button id="startGame" class="interaction">Jouer</button>
-    </div>
-    <div id="messageIntro">
+    </section>
+    <section id="messageIntro">
         <h1>Vous avez un message</h1>
         <img src="images/message.png" alt="enveloppe" class="interaction" />
         <div id="contenuMessage">
@@ -40,36 +40,53 @@
             <p>Vous devez effectuer cette tâche dans les <span class="emphasize">5 minutes</span> suivant l’ouverture de ce message.</p>
             <button class="next interaction">Bien reçu</button>
         </div>
-    </div>
-    <div id="firstPart">
-        <div id="accueilText" class="firstPlan">
+    </section>
+    <section id="messageMarchand">
+        <div id="accueilText">
             <h1>Bonjour à toi et bienvenue chez Robabies !!!</h1>
             <p>Avant de te laisse faire tes achats tu vas devoir me prouver que tu es bien un robot. Pour ça rien de plus simple ! Je vais écrire des questions au tableau et tu devras y répondre.</p>
             <p><span class="emphasize">Attention !</span> Si tu fais 2 fautes j'appelerais le service anti-humains pour qu'ils t'emmènent.</p>
             <button class="next interaction">Bien reçu</button>
         </div>
-        <img class="firstPlan" id="marchandFirstPlan" src="images/marchand0.png" alt="robot marchand" />
-        <div id="game">
-            <img id="marchandInGame" src="images/marchand0.png" alt="robot marchand" />
+        <img id="marchandFirstPlan" src="images/marchand0.png" alt="robot marchand" />
+    </section>
+    <div id="mainPart">
+        <section id="leftSideBarre" class="sideBarre">
+            <div id="toDoList">
+                <h2>To Do List</h2>
+                <ul>
+                    <li>Imprimer le plan</li>
+                    <li>Récupérer les objets demandés</li>
+                    <li>Assembler le bébé</li>
+                </ul>
+            </div>
+        </section>
+        <section id="game">
+            <div id="marchandInGame">
+                <p>Un problème ?</p>
+                <img src="images/marchand0.png" alt="robot marchand" />
+            </div>
             <div id="blackBoard" class="quiz">
             </div>
+            <img src="images/imprimante.png" alt="imprimante" id="imprimante" />
             <img src="images/blueprint.png" alt="plan" id="plan" class="none" />
-            <img src="images/huile.png" alt="bidon d'huile" id="huile" />
-            <div id="MyDialogue" class="interaction quiz">
+            <img src="images/huile.png" alt="bidon d'huile" id="huile" class="collectibles" />
+            <img src="images/potecrous0.png" alt="pot avec ecrous" id="ecrous" class="collectibles" />
+            <div id="MyDialogue" class="quiz">
             </div>
-        </div>
-        <section id="sideBarre">
+        </section>
+        <section id="rightSideBarre" class="sideBarre">
             <div id="compteRebours">
                 <p>05:00</p>
             </div>
             <div id="inventory">
-                <div id="ecrousListe"><img class="imagesInventaire uncollected" src="images/ecrous.jpg" alt="écrous et boulons" />
+                <div id="ecrousListe"><img class="imagesInventaire uncollected" src="images/inventaire/écrous.png" alt="écrous et boulons" />
                     <p>Ecrous</p>
                 </div>
-                <div id="huileListe"><img class="imagesInventaire uncollected" src="images/huile.png" alt="bidon d'huile" />
+                <div id="huileListe"><img class="imagesInventaire uncollected" src="images/inventaire/huile.png" alt="bidon d'huile" />
                     <p>Huile</p>
                 </div>
-                <div id="metalListe"><img class="imagesInventaire uncollected" src="images/metal.jpg" alt="morceau de métal" />
+                <div id="metalListe"><img class="imagesInventaire uncollected" src="images/inventaire/métal.png" alt="morceau de métal" />
                     <p>Métal</p>
                 </div>
             </div>
@@ -77,6 +94,7 @@
     </div>
     <div id="endMessage">
     </div>
+    <audio id="musique" src="audio/8Bit-Untitled 01.mp3"></audio>
     <script src="js/script.js"></script>
 </body>
 
