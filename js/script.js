@@ -15,8 +15,10 @@ document.querySelector("#endMessage").classList.add("none");
 
 
 document.querySelector("#startGame").addEventListener('click', function() {
-    document.querySelector("#leftDoor").style.animation = "leftDoorOpening 1s linear forwards";
-    rightDoor.style.animation = "rightDoorOpening 1s linear forwards";
+    document.querySelector("#leftDoor").style.animation = "leftDoorOpening 1.8s linear forwards";
+    rightDoor.style.animation = "rightDoorOpening 1.8s linear forwards";
+    document.querySelector("#doorSound").play();
+    document.querySelector("#title").style.opacity = "0";
     this.style.opacity = "0";
     jouerMusique();
 });
@@ -53,6 +55,7 @@ buttonDialogueMarchandIntro.addEventListener("click", function() {
     // document.querySelector("#mainPart").classList.add("none");
     departCompteRebours();
     document.querySelector("#messageMarchand").classList.add("none");
+    document.querySelector("#littleSpeaker").classList.add("none");
     document.querySelector("#mainPart").classList.remove("none");
 });
 
@@ -114,12 +117,12 @@ function isAnswerCorrect() {
 
     if (questions[index].answer.includes(questions[index].choices.indexOf(choiceClicked))) {
         nextQuestion();
+        document.querySelector("#goodSound").play();
     } else {
-        console.log("sale humain");
+        document.querySelector("#wrongSound").play();
         nbErreur++;
         switch (nbErreur) {
             case 1:
-                console.log("ici");
                 document.querySelector("#marchandInGame>img").setAttribute("src", "images/marchand1.png");
                 break;
             case 2:
@@ -165,6 +168,7 @@ function printPlan() {
         setTimeout(function() {
             document.querySelector("#plan").style.transform = "scaleY(0.5)";
             document.querySelector("#plan").addEventListener("click", function() {
+                document.querySelector("#phase1").classList.add("collected");
                 this.classList.add("none");
                 document.querySelector("#inventory").style.transform = "scaleY(1)";
                 clearInterval(planMvt);
@@ -188,11 +192,11 @@ let ecrous = document.querySelector("#ecrous");
 function activateItems() {
     huile.classList.add("interaction");
     ecrous.classList.add("interaction");
+    document.querySelector("#marchandInGame>img").classList.add("interaction");
     document.querySelector("#marchandInGame").addEventListener("click", dialogueMarchand);
 
 
     huile.addEventListener("click", function() {
-        console.log("click");
         this.classList.add("none");
         document.querySelector("#huileListe").classList.add("collected");
         document.querySelector("#huileListe>img").classList.remove("uncollected");
@@ -200,6 +204,7 @@ function activateItems() {
         if (itemsCollected == 2) {
             nextDialogueID = 1;
         }
+        itemCollectedMusic();
     }, { once: true });
 
     ecrous.addEventListener("click", function() {
@@ -210,14 +215,8 @@ function activateItems() {
         if (itemsCollected == 2) {
             nextDialogueID = 1;
         }
+        itemCollectedMusic();
     }, { once: true });
-
-    // document.querySelector("#metal").addEventListener("click", function() {
-    //     this.classList.add("none");
-    //     document.querySelector("#metalListe").classList.add("collected");
-    //     document.querySelector("#metalListe>img").classList.remove("uncollected");
-    //     itemsCollected++;
-    // });
 }
 
 
@@ -258,7 +257,8 @@ function dialogueMarchand() {
                 document.querySelector("#metalListe").classList.add("collected");
                 document.querySelector("#metalListe>img").classList.remove("uncollected");
                 itemsCollected++;
-                endGameWin();
+                itemCollectedMusic();
+                setTimeout(endGameWin(), 2000);
             }
         }
     }
@@ -281,24 +281,32 @@ function closeDialogue() {
 
 function endGameFail() {
     clearInterval(compteRebours);
+    pauseMusique();
+    playEndMusique("audio/fail.wav");
     document.querySelector("#endMessage").classList.remove("none");
     document.querySelector("#endMessage").style.opacity = "1";
-    document.querySelector("#endMessage").innerHTML = "<p>Malhereusement pour toi tu as perdu. Tu n'étais pas digne d'avoir un bébé robot.</p><p>Mais tu peux toujours rééssayer si tu as envie ! (ou juste quitter le jeu aussi...)</p><button id='replayButton'>Replay</button>";
+    document.querySelector("#endMessage").innerHTML = "<div><p>Malhereusement pour toi tu as perdu. Tu n'étais pas digne d'avoir un bébé robot.</p><p>Mais tu peux toujours rééssayer si tu as envie ! (ou juste quitter le jeu aussi...)</p></div><button id='replayButton' class='boutons interaction'>Replay</button>";
     document.querySelector("#replayButton").addEventListener("click", function() {
         location.reload();
     });
 }
 
 function endGameWin() {
-    document.querySelector("#mainPart").style.opacity = "0";
-    console.log("gagné");
-    clearInterval(compteRebours);
+
     document.querySelector("#endMessage").classList.remove("none");
-    document.querySelector("#endMessage").style.opacity = "1";
-    document.querySelector("#endMessage").innerHTML = "<h2>Félicitation te voilà parent !</h2><img src='images/bebe.png' alt='bébé robot'/><button id='replayButton'>Replay</button>";
-    document.querySelector("#replayButton").addEventListener("click", function() {
-        location.reload();
-    });
+    setTimeout(function() {
+        pauseMusique();
+        playEndMusique("audio/win.mp3");
+        document.querySelector("#mainPart").style.opacity = "0";
+        console.log("gagné");
+        clearInterval(compteRebours);
+        document.querySelector("#endMessage").style.opacity = "1";
+        document.querySelector("#endMessage").innerHTML = "<h2>Félicitation te voilà parent !</h2><p>Merci d'avoir joué à Robabies.</p><img src='images/bebe.png' alt='bébé robot'/><button id='replayButton' class='boutons interaction'>Replay</button>";
+        document.querySelector("#replayButton").addEventListener("click", function() {
+            location.reload();
+        });
+    }, 2000)
+
 }
 
 
@@ -331,7 +339,34 @@ function formatNumerique(n) {
 /*Musique*/
 let musique = document.querySelector("#musique");
 musique.loop = true;
+document.querySelectorAll(".speaker").forEach(function(speaker) {
+    speaker.addEventListener("click", function() {
+        // this.classList.toggle("paused");
+        document.querySelectorAll(".speaker").forEach(function(test) {
+            test.classList.toggle("paused");
+        });
+        if (this.classList.contains("paused")) {
+            pauseMusique();
+        } else {
+            jouerMusique();
+
+        }
+    });
+});
 
 function jouerMusique() {
     musique.play();
+}
+
+function pauseMusique() {
+    musique.pause();
+}
+
+function playEndMusique(link) {
+    document.querySelector("#endMusic").setAttribute("src", link);
+    document.querySelector("#endMusic").play();
+}
+
+function itemCollectedMusic() {
+    document.querySelector("#itemsCollectedSound").play();
 }

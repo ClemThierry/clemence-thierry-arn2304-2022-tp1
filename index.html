@@ -10,21 +10,20 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Play&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <img id="littleSpeaker" class="speaker" src="images/speaker_petit.png" alt="petit haut-parleur" />
     <section id="accueil">
+        <div id="title">
+            <img src="images/titre.png" alt="titre" />
+        </div>
         <div id="leftDoor" class="door"></div>
         <div id="rightDoor" class="door"></div>
         <button id="startGame" class="interaction">Jouer</button>
+        <audio id="doorSound" src="audio/doors.wav"></audio>
     </section>
     <section id="messageIntro">
         <h1>Vous avez un message</h1>
@@ -38,7 +37,7 @@
                 <li>Assembler le nouveau membre de votre famille</li>
             </ol>
             <p>Vous devez effectuer cette tâche dans les <span class="emphasize">5 minutes</span> suivant l’ouverture de ce message.</p>
-            <button class="next interaction">Bien reçu</button>
+            <button class="next interaction boutons">Bien reçu</button>
         </div>
     </section>
     <section id="messageMarchand">
@@ -46,7 +45,7 @@
             <h1>Bonjour à toi et bienvenue chez Robabies !!!</h1>
             <p>Avant de te laisse faire tes achats tu vas devoir me prouver que tu es bien un robot. Pour ça rien de plus simple ! Je vais écrire des questions au tableau et tu devras y répondre.</p>
             <p><span class="emphasize">Attention !</span> Si tu fais 2 fautes j'appelerais le service anti-humains pour qu'ils t'emmènent.</p>
-            <button class="next interaction">Bien reçu</button>
+            <button class="next interaction boutons">Bien reçu</button>
         </div>
         <img id="marchandFirstPlan" src="images/marchand0.png" alt="robot marchand" />
     </section>
@@ -55,11 +54,12 @@
             <div id="toDoList">
                 <h2>To Do List</h2>
                 <ul>
-                    <li>Imprimer le plan</li>
+                    <li><span id="phase1">Imprimer le plan</span></li>
                     <li>Récupérer les objets demandés</li>
                     <li>Assembler le bébé</li>
                 </ul>
             </div>
+            <img class="speaker" src="images/speaker.png" alt="haut parleur" />
         </section>
         <section id="game">
             <div id="marchandInGame">
@@ -74,6 +74,9 @@
             <img src="images/potecrous0.png" alt="pot avec ecrous" id="ecrous" class="collectibles" />
             <div id="MyDialogue" class="quiz">
             </div>
+            <audio id="itemsCollectedSound" src="audio/true.wav"></audio>
+            <audio id="wrongSound" src="audio/wrong.wav"></audio>
+            <audio id="goodSound" src="audio/true.wav"></audio>
         </section>
         <section id="rightSideBarre" class="sideBarre">
             <div id="compteRebours">
@@ -93,8 +96,10 @@
         </section>
     </div>
     <div id="endMessage">
+
     </div>
     <audio id="musique" src="audio/8Bit-Untitled 01.mp3"></audio>
+    <audio id="endMusic"></audio>
     <script src="js/script.js"></script>
 </body>
 

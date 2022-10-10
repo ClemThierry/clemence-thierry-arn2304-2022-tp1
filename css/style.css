@@ -17,7 +17,6 @@ body {
     width: 100vw;
     background-image: url("../images/decor.png");
     display: flex;
-    /* font-family: 'Play', sans-serif; */
     font-family: 'Silkscreen', cursive;
     overflow: hidden;
     /* position: relative; */
@@ -43,13 +42,26 @@ h2 {
     display: flex;
 }
 
+#title {
+    position: absolute;
+    top: 0px;
+    width: 100vw;
+    z-index: 6;
+    display: flex;
+    transition-duration: 1.5s;
+}
+
+#title>img {
+    margin: auto;
+}
+
 .door {
     background-image: url("../images/decor.png");
     height: 100vh;
     width: 50vw;
     background-color: var(--lightBlue);
     position: absolute;
-    z-index: 3;
+    z-index: 5;
 }
 
 #leftDoor {
@@ -68,7 +80,7 @@ h2 {
     right: 40vw;
     top: 50vh;
     height: 70px;
-    z-index: 4;
+    z-index: 6;
     transition-duration: 0.4s;
     border-radius: 20px;
     border: unset;
@@ -281,8 +293,59 @@ h2 {
     color: var(--darkBlue);
 }
 
+#leftSideBarre {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 #leftSideBarre>div {
     padding: 15px;
+}
+
+.speaker {
+    background: none;
+    border: none;
+    max-width: 300px;
+    animation: musique ease-in-out 0.6s infinite;
+}
+
+#littleSpeaker {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    z-index: 4;
+    animation: musique2 ease-in-out 0.8s infinite;
+}
+
+@keyframes musique {
+    from {
+        transform: scale(0.95);
+    }
+    50% {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0.95);
+    }
+}
+
+@keyframes musique2 {
+    from {
+        transform: rotateZ(30deg);
+    }
+    50% {
+        transform: rotateZ(-30deg);
+    }
+    to {
+        transform: rotateZ(30deg);
+    }
+}
+
+.paused {
+    animation-play-state: paused !important;
+    filter: grayscale(70%);
 }
 
 #rightSideBarre {
@@ -462,6 +525,11 @@ h2 {
 }
 
 .next {
+    opacity: 0;
+    transition-duration: 1s;
+}
+
+.boutons {
     background-color: var(--darkYellow);
     padding: 15px;
     width: fit-content;
@@ -471,8 +539,12 @@ h2 {
     margin: auto;
     margin-top: 20px;
     color: var(--purple);
-    opacity: 0;
-    transition-duration: 1s;
+    transition-duration: 0.4s;
+}
+
+.boutons:hover {
+    -webkit-box-shadow: 2px 5px 16px 0px #0B325E, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+    box-shadow: 2px 5px 16px 0px #0B325E, 5px 5px 15px 5px rgba(0, 0, 0, 0);
 }
 
 .interaction {
