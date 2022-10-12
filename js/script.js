@@ -36,7 +36,7 @@ letter.addEventListener("click", function() {
     messageBebe.style.transform = "scale(1)";
     setTimeout(function() {
         buttonMessageBebe.style.opacity = "1";
-    }, 8000);
+    }, 5000);
 });
 
 buttonMessageBebe.addEventListener("click", function() {
@@ -48,7 +48,7 @@ buttonMessageBebe.addEventListener("click", function() {
 
     setTimeout(function() {
         buttonDialogueMarchandIntro.style.opacity = "1";
-    }, 5000);
+    }, 4000);
 });
 
 buttonDialogueMarchandIntro.addEventListener("click", function() {
