@@ -83,6 +83,7 @@ let planItem = document.querySelector("#plan");
 let huile = document.querySelector("#huile");
 let ecrous = document.querySelector("#ecrous");
 let merchantImg = document.querySelector("#marchandInGame>img");
+let goodSong = document.querySelector("#itemsCollectedSound");
 
 //Question retrieval
 fetch('../json/questions.json')
@@ -114,7 +115,6 @@ function askQuestion(askingQuestion) {
             optionsDiv.innerHTML += "<p class=\"choices interaction\">" + choice + "</p>";
         });
     } else {
-        console.log(askingQuestion.choices);
         askingQuestion.choices.forEach((choice) => {
             optionsDiv.innerHTML += "<div class=\"choices interaction\"><img src='" + choice + "'/></div>";
         });
@@ -135,7 +135,7 @@ function isAnswerCorrect() {
 
     if (questions[index].answer.includes(questions[index].choices.indexOf(choiceClicked))) {
         nextQuestion();
-        document.querySelector("#goodSound").play();
+        goodActionMusic();
     } else {
         document.querySelector("#wrongSound").play();
         nbErrors++;
@@ -192,8 +192,6 @@ function printPlan() {
             planMvt = setInterval(function() {
                 let left = Math.floor(Math.random() * (300 - 1));
                 let bottom = Math.floor(Math.random() * (300 - 1));
-                console.log("ok");
-
                 planItem.style.transform = "translate(" + left + "px, " + bottom + "px)";
             }, 800);
         }, 1000);
@@ -218,7 +216,7 @@ function activateItems() {
         if (itemsCollected == 2) {
             nextDialogueID = 1;
         }
-        itemCollectedMusic();
+        goodActionMusic();
     }, { once: true });
 
     ecrous.addEventListener("click", function() {
@@ -229,7 +227,7 @@ function activateItems() {
         if (itemsCollected == 2) {
             nextDialogueID = 1;
         }
-        itemCollectedMusic();
+        goodActionMusic();
     }, { once: true });
 }
 
@@ -274,7 +272,8 @@ function dialogueMarchand() {
                 document.querySelector("#metalListe").classList.add("collected");
                 document.querySelector("#metalListe>img").classList.remove("uncollected");
                 itemsCollected++;
-                itemCollectedMusic();
+                goodActionMusic();
+                document.querySelector("#phase2").classList.add("collected");
                 setTimeout(endGameWin(), 2000);
             }
         }
@@ -314,6 +313,7 @@ function endGameFail() {
 function endGameWin() {
     divEndMessage.classList.remove("none");
     setTimeout(function() {
+        document.querySelector("#phase3").classList.add("collected");
         pauseMusic();
         playEndMusic("audio/win.mp3");
         mainSection.style.opacity = "0";
@@ -398,6 +398,7 @@ function playEndMusic(link) {
 }
 
 //Play the collected-items music
-function itemCollectedMusic() {
-    document.querySelector("#itemsCollectedSound").play();
+function goodActionMusic() {
+    goodSong.load();
+    goodSong.play();
 }

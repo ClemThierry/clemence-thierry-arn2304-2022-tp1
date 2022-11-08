@@ -1,3 +1,6 @@
+<!-- Musique libre de droit créée par 8bit Rockers : https://music.youtube.com/watch?v=VS4secxqr_A&list=PLcJ94peiEAVkphJIX5URSuHVqK5B5nlje
+Autres sons (auteurs inconnus) libre de droits : https://lasonotheque.org -->
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -15,10 +18,10 @@
 </head>
 
 <body>
-    <img id="littleSpeaker" class="speaker" src="images/speaker_petit.png" alt="petit haut-parleur" />
+    <img id="littleSpeaker" class="speaker interaction" src="images/speaker_petit.png" alt="petit haut-parleur" />
     <section id="welcomePartSection">
         <div id="title">
-            <img src="images/titre.png" alt="titre" />
+            <img src="images/titre.png" alt="RoBabies logo" />
         </div>
         <div id="leftDoor" class="door"></div>
         <div id="rightDoor" class="door"></div>
@@ -55,11 +58,11 @@
                 <h2>To Do List</h2>
                 <ul>
                     <li><span id="phase1">Imprimer le plan</span></li>
-                    <li>Récupérer les objets demandés</li>
-                    <li>Assembler le bébé</li>
+                    <li><span id="phase2">Récupérer les objets demandés</span></li>
+                    <li><span id="phase3">Assembler le bébé</span></li>
                 </ul>
             </div>
-            <img class="speaker" src="images/speaker.png" alt="haut parleur" />
+            <img class="speaker" src="images/speaker.png" alt="haut-parleur" />
         </section>
         <section id="game">
             <div id="marchandInGame">
@@ -76,7 +79,6 @@
             </div>
             <audio id="itemsCollectedSound" src="audio/true.wav"></audio>
             <audio id="wrongSound" src="audio/wrong.wav"></audio>
-            <audio id="goodSound" src="audio/true.wav"></audio>
         </section>
         <section id="rightSideBarre" class="sideBarre">
             <div id="countdown">
