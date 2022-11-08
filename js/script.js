@@ -1,73 +1,90 @@
-/*Partie Intro*/
-let secondes = 0;
-let minutes = 5;
-
 let rightDoor = document.querySelector("#rightDoor");
-let letter = document.querySelector("#messageIntro > img");
-let messageBebe = document.querySelector("#contenuMessage");
-let buttonMessageBebe = document.querySelector("#contenuMessage>button");
-let dialogueMarchandIntro = document.querySelector("#messageIntro");
-let buttonDialogueMarchandIntro = document.querySelector("#messageMarchand .next");
+let letter = document.querySelector("#introMessageSection > img");
+let babyMessage = document.querySelector("#contenuMessage");
+let buttonBabyMessage = document.querySelector("#contenuMessage>button");
+let merchantIntroDialog = document.querySelector("#introMessageSection");
+let buttonMerchantIntroDialog = document.querySelector("#merchantMessageSection .next");
+let merchantDialog = document.querySelector("#merchantMessageSection");
+let mainSection = document.querySelector("#mainPartSection");
+let divEndMessage = document.querySelector("#endMessage");
 
-document.querySelector("#messageMarchand").classList.add("none");
-document.querySelector("#mainPart").classList.add("none");
-document.querySelector("#endMessage").classList.add("none");
+merchantDialog.classList.add("none");
+mainSection.classList.add("none");
+divEndMessage.classList.add("none");
 
+/************************/
+/* Beginnig of the game */
+/************************/
 
+//Doors animation + Music
 document.querySelector("#startGame").addEventListener('click', function() {
     document.querySelector("#leftDoor").style.animation = "leftDoorOpening 1.8s linear forwards";
     rightDoor.style.animation = "rightDoorOpening 1.8s linear forwards";
     document.querySelector("#doorSound").play();
     document.querySelector("#title").style.opacity = "0";
     this.style.opacity = "0";
-    jouerMusique();
+    playMusic();
 });
 
+//Letter animation
 rightDoor.addEventListener("animationend", function() {
-    document.querySelector("#accueil").style.display = "none";
+    document.querySelector("#welcomePartSection").style.display = "none";
     letter.style.animation = "wiggle 1s linear infinite";
 }, false);
 
+//Opening of the message
 letter.addEventListener("click", function() {
     this.classList.add("none");
-    document.querySelector("#messageIntro > h1").classList.add("none");
-    messageBebe.classList.remove("none");
+    document.querySelector("#introMessageSection > h1").classList.add("none");
+    babyMessage.classList.remove("none");
 
-    messageBebe.style.transform = "scale(1)";
+    babyMessage.style.transitionDuration = "5s";
+    babyMessage.style.transform = "scale(1)";
     setTimeout(function() {
-        buttonMessageBebe.style.opacity = "1";
+        buttonBabyMessage.style.opacity = "1";
+        buttonBabyMessage.classList.add("interaction");
     }, 5000);
 });
 
-buttonMessageBebe.addEventListener("click", function() {
-    dialogueMarchandIntro.style.opacity = "0";
+//Intro dialog of the merchant
+buttonBabyMessage.addEventListener("click", function() {
+    merchantIntroDialog.style.opacity = "0";
     setTimeout(function() {
-        dialogueMarchandIntro.classList.add("none");
-        document.querySelector("#messageMarchand").classList.remove("none");
+        merchantIntroDialog.classList.add("none");
+        merchantDialog.classList.remove("none");
     }, 200);
 
     setTimeout(function() {
-        buttonDialogueMarchandIntro.style.opacity = "1";
+        buttonMerchantIntroDialog.style.opacity = "1";
+        buttonMerchantIntroDialog.classList.add("interaction");
     }, 4000);
 });
 
-buttonDialogueMarchandIntro.addEventListener("click", function() {
-    // document.querySelector("#mainPart").classList.add("none");
-    departCompteRebours();
-    document.querySelector("#messageMarchand").classList.add("none");
+buttonMerchantIntroDialog.addEventListener("click", function() {
+    countdownStart();
+    merchantDialog.classList.add("none");
     document.querySelector("#littleSpeaker").classList.add("none");
-    document.querySelector("#mainPart").classList.remove("none");
+    mainSection.classList.remove("none");
 });
 
-/*Partie quizz*/
+/***********************/
+/*Main part of the game*/
+/***********************/
 
 const optionsDiv = document.querySelector("#MyDialogue");
 const questionDiv = document.querySelector("#blackBoard");
 let questions = [];
 let index = 0;
-let nbErreur = 0;
+let nbErrors = 0;
 let choiceClicked;
+let planMvt;
+let imprimante = document.querySelector("#imprimante");
+let planItem = document.querySelector("#plan");
+let huile = document.querySelector("#huile");
+let ecrous = document.querySelector("#ecrous");
+let merchantImg = document.querySelector("#marchandInGame>img");
 
+//Question retrieval
 fetch('../json/questions.json')
     .then((response) => response.json())
     .then((data) => {
@@ -78,12 +95,12 @@ fetch('../json/questions.json')
         console.error(err);
     });
 
-// document.querySelector("#blackBoard").addEventListener("click", isAnswerCorrect);
-
+//Launch of the quiz
 function startQuiz() {
     askQuestion(questions[index]);
 }
 
+//Question display + answer display
 function askQuestion(askingQuestion) {
     questionDiv.innerHTML = "<p>" + askingQuestion.question + "</p>";
     if (askingQuestion.image != "") {
@@ -108,6 +125,7 @@ function askQuestion(askingQuestion) {
 
 }
 
+//Checking the answer
 function isAnswerCorrect() {
     if (this.children[0]) {
         choiceClicked = this.children[0].getAttribute('src');
@@ -120,13 +138,13 @@ function isAnswerCorrect() {
         document.querySelector("#goodSound").play();
     } else {
         document.querySelector("#wrongSound").play();
-        nbErreur++;
-        switch (nbErreur) {
+        nbErrors++;
+        switch (nbErrors) {
             case 1:
-                document.querySelector("#marchandInGame>img").setAttribute("src", "images/marchand1.png");
+                merchantImg.setAttribute("src", "images/marchand1.png");
                 break;
             case 2:
-                document.querySelector("#marchandInGame>img").setAttribute("src", "images/marchand2.png");
+                merchantImg.setAttribute("src", "images/marchand2.png");
                 endGameFail();
                 break;
 
@@ -136,12 +154,12 @@ function isAnswerCorrect() {
     }
 }
 
+//Question Change
 function nextQuestion() {
     if (index < questions.length - 1) {
         index++;
         askQuestion(questions[index]);
     } else {
-        //next part
         optionsDiv.innerHTML = "";
         optionsDiv.classList.add("none");
         document.querySelectorAll('.choices').forEach(choice => {
@@ -151,23 +169,21 @@ function nextQuestion() {
         printPlan();
     }
 }
-let planMvt;
-let imprimante = document.querySelector("#imprimante");
 
-
+//Animation with the printer
 function printPlan() {
     imprimante.classList.add("interaction");
     imprimante.addEventListener("click", function() {
         this.classList.remove("interaction");
-        document.querySelector("#plan").classList.remove("none");
+        planItem.classList.remove("none");
         activateItems();
         setTimeout(function() {
-            document.querySelector("#plan").style.transform = "scaleY(1)";
+            planItem.style.transform = "scaleY(1)";
         }, 500);
 
         setTimeout(function() {
-            document.querySelector("#plan").style.transform = "scaleY(0.5)";
-            document.querySelector("#plan").addEventListener("click", function() {
+            planItem.style.transform = "scaleY(0.5)";
+            planItem.addEventListener("click", function() {
                 document.querySelector("#phase1").classList.add("collected");
                 this.classList.add("none");
                 document.querySelector("#inventory").style.transform = "scaleY(1)";
@@ -178,7 +194,7 @@ function printPlan() {
                 let bottom = Math.floor(Math.random() * (300 - 1));
                 console.log("ok");
 
-                document.querySelector("#plan").style.transform = "translate(" + left + "px, " + bottom + "px)";
+                planItem.style.transform = "translate(" + left + "px, " + bottom + "px)";
             }, 800);
         }, 1000);
 
@@ -186,13 +202,11 @@ function printPlan() {
     }, { once: true });
 }
 
-let huile = document.querySelector("#huile");
-let ecrous = document.querySelector("#ecrous");
-
+//Collections of items
 function activateItems() {
     huile.classList.add("interaction");
     ecrous.classList.add("interaction");
-    document.querySelector("#marchandInGame>img").classList.add("interaction");
+    merchantImg.classList.add("interaction");
     document.querySelector("#marchandInGame").addEventListener("click", dialogueMarchand);
 
 
@@ -219,16 +233,17 @@ function activateItems() {
     }, { once: true });
 }
 
-
-
-
+/***********/
 /*Last part*/
+/***********/
 
 let itemsCollected = 0;
 let dialogues;
 let nextDialogueID = 0;
+let isDialogReceive = false;
 
 
+//Merchant dialog recovery
 fetch('../json/dialogue.json')
     .then((response) => response.json())
     .then((data) => {
@@ -239,20 +254,22 @@ fetch('../json/dialogue.json')
         console.error(err);
     });
 
+//Check if dialog is already received
 function dialogueReceive() {
-    return true;
+    isDialogReceive = true;
 }
 
+//Display of the merchant dialog
 function dialogueMarchand() {
-    if (dialogueReceive()) {
+    if (isDialogReceive) {
         document.querySelector("#marchandInGame>p").style.opacity = "1";
         document.querySelector("#marchandInGame>p").innerHTML = dialogues[nextDialogueID].marchand;
+        optionsDiv.classList.remove("none");
+        optionsDiv.innerHTML = "";
+        dialogues[nextDialogueID].joueur.forEach((choice, index) => {
+            optionsDiv.innerHTML += "<p class=\"choices interaction\" currentID='" + nextDialogueID + "' nextID='" + dialogues[nextDialogueID].next[index] + "' onclick='updateNextDialogueID(this.getAttribute(\"nextID\"), this.getAttribute(\"currentID\"))'>" + choice + "</p>";
+        });
         if (nextDialogueID >= 1) {
-            optionsDiv.classList.remove("none");
-            optionsDiv.innerHTML = "";
-            dialogues[nextDialogueID].joueur.forEach((choice, index) => {
-                optionsDiv.innerHTML += "<p class=\"choices interaction\" currentID='" + nextDialogueID + "' nextID='" + dialogues[nextDialogueID].next[index] + "' onclick='updateNextDialogueID(this.getAttribute(\"nextID\"), this.getAttribute(\"currentID\"))'>" + choice + "</p>";
-            });
             if (nextDialogueID == 3) {
                 document.querySelector("#metalListe").classList.add("collected");
                 document.querySelector("#metalListe>img").classList.remove("uncollected");
@@ -264,6 +281,7 @@ function dialogueMarchand() {
     }
 }
 
+//Go to next dialog
 function updateNextDialogueID(nextIndex, currentIndex) {
     nextDialogueID = nextIndex;
     if (dialogues[currentIndex].isNext) {
@@ -273,35 +291,35 @@ function updateNextDialogueID(nextIndex, currentIndex) {
     }
 }
 
+//Close dialog
 function closeDialogue() {
     optionsDiv.classList.add("none");
     document.querySelector("#marchandInGame>p").style.opacity = "0";
 }
 
-
+//Game over
 function endGameFail() {
-    clearInterval(compteRebours);
-    pauseMusique();
-    playEndMusique("audio/fail.wav");
-    document.querySelector("#endMessage").classList.remove("none");
-    document.querySelector("#endMessage").style.opacity = "1";
-    document.querySelector("#endMessage").innerHTML = "<div><p>Malhereusement pour toi tu as perdu. Tu n'étais pas digne d'avoir un bébé robot.</p><p>Mais tu peux toujours rééssayer si tu as envie ! (ou juste quitter le jeu aussi...)</p></div><button id='replayButton' class='boutons interaction'>Replay</button>";
+    clearInterval(countdown);
+    pauseMusic();
+    playEndMusic("audio/fail.wav");
+    divEndMessage.classList.remove("none");
+    divEndMessage.style.opacity = "1";
+    divEndMessage.innerHTML = "<div><p>Malhereusement pour toi tu as perdu. Tu n'étais pas digne d'avoir un bébé robot.</p><p>Mais tu peux toujours rééssayer si tu as envie ! (ou juste quitter le jeu aussi...)</p></div><button id='replayButton' class='boutons interaction'>Replay</button>";
     document.querySelector("#replayButton").addEventListener("click", function() {
         location.reload();
     });
 }
 
+//Game won
 function endGameWin() {
-
-    document.querySelector("#endMessage").classList.remove("none");
+    divEndMessage.classList.remove("none");
     setTimeout(function() {
-        pauseMusique();
-        playEndMusique("audio/win.mp3");
-        document.querySelector("#mainPart").style.opacity = "0";
-        console.log("gagné");
-        clearInterval(compteRebours);
-        document.querySelector("#endMessage").style.opacity = "1";
-        document.querySelector("#endMessage").innerHTML = "<h2>Félicitation te voilà parent !</h2><p>Merci d'avoir joué à Robabies.</p><img src='images/bebe.png' alt='bébé robot'/><button id='replayButton' class='boutons interaction'>Replay</button>";
+        pauseMusic();
+        playEndMusic("audio/win.mp3");
+        mainSection.style.opacity = "0";
+        clearInterval(countdown);
+        divEndMessage.style.opacity = "1";
+        divEndMessage.innerHTML = "<h2>Félicitation te voilà parent !</h2><p>Merci d'avoir joué à Robabies.</p><img src='images/bebe.png' alt='bébé robot'/><button id='replayButton' class='boutons interaction'>Replay</button>";
         document.querySelector("#replayButton").addEventListener("click", function() {
             location.reload();
         });
@@ -309,22 +327,26 @@ function endGameWin() {
 
 }
 
+/***********/
+/*Countdown*/
+/***********/
 
-/*Compte à rebours*/
+let countdown;
+let seconds = 0;
+let minutes = 5;
 
-let compteRebours;
-
-function departCompteRebours() {
-    compteRebours = setInterval(function() {
-        if (secondes == 0) {
-            secondes = 60;
+//Start the countdown
+function countdownStart() {
+    countdown = setInterval(function() {
+        if (seconds == 0) {
+            seconds = 60;
             minutes--;
             if (minutes == 0) {
-                document.querySelector("#compteRebours").style.color = "red"
+                document.querySelector("#countdown").style.color = "red"
             }
         }
-        secondes--;
-        document.querySelector("#compteRebours").innerHTML = "<p>" + formatNumerique(minutes) + ":" + formatNumerique(secondes) + "</p>";
+        seconds--;
+        document.querySelector("#countdown").innerHTML = "<p>" + numericalFormat(minutes) + ":" + numericalFormat(seconds) + "</p>";
     }, 1000);
 
     setTimeout(function() {
@@ -332,41 +354,50 @@ function departCompteRebours() {
     }, 300000);
 }
 
-function formatNumerique(n) {
+//Set numerical format
+function numericalFormat(n) {
     return n > 9 ? "" + n : "0" + n;
 }
 
-/*Musique*/
-let musique = document.querySelector("#musique");
-musique.loop = true;
+/*******/
+/*Music*/
+/*******/
+
+let music = document.querySelector("#music");
+music.loop = true;
+
+//Setting of the "music" buttons
 document.querySelectorAll(".speaker").forEach(function(speaker) {
     speaker.addEventListener("click", function() {
-        // this.classList.toggle("paused");
-        document.querySelectorAll(".speaker").forEach(function(test) {
-            test.classList.toggle("paused");
+        document.querySelectorAll(".speaker").forEach(function(speaker) {
+            speaker.classList.toggle("paused");
         });
         if (this.classList.contains("paused")) {
-            pauseMusique();
+            pauseMusic();
         } else {
-            jouerMusique();
+            playMusic();
 
         }
     });
 });
 
-function jouerMusique() {
-    musique.play();
+//Play
+function playMusic() {
+    music.play();
 }
 
-function pauseMusique() {
-    musique.pause();
+//Pause
+function pauseMusic() {
+    music.pause();
 }
 
-function playEndMusique(link) {
+//Play the ending music
+function playEndMusic(link) {
     document.querySelector("#endMusic").setAttribute("src", link);
     document.querySelector("#endMusic").play();
 }
 
+//Play the collected-items music
 function itemCollectedMusic() {
     document.querySelector("#itemsCollectedSound").play();
 }

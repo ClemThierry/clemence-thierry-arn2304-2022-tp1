@@ -16,7 +16,7 @@
 
 <body>
     <img id="littleSpeaker" class="speaker" src="images/speaker_petit.png" alt="petit haut-parleur" />
-    <section id="accueil">
+    <section id="welcomePartSection">
         <div id="title">
             <img src="images/titre.png" alt="titre" />
         </div>
@@ -25,7 +25,7 @@
         <button id="startGame" class="interaction">Jouer</button>
         <audio id="doorSound" src="audio/doors.wav"></audio>
     </section>
-    <section id="messageIntro">
+    <section id="introMessageSection">
         <h1>Vous avez un message</h1>
         <img src="images/message.png" alt="enveloppe" class="interaction" />
         <div id="contenuMessage">
@@ -37,19 +37,19 @@
                 <li>Assembler le nouveau membre de votre famille</li>
             </ol>
             <p>Vous devez effectuer cette tâche dans les <span class="emphasize">5 minutes</span> suivant l’ouverture de ce message.</p>
-            <button class="next interaction boutons">Bien reçu</button>
+            <button class="next boutons">Bien reçu</button>
         </div>
     </section>
-    <section id="messageMarchand">
+    <section id="merchantMessageSection">
         <div id="accueilText">
             <h1>Bonjour à toi et bienvenue chez Robabies !!!</h1>
             <p>Avant de te laisser faire tes achats tu vas devoir me prouver que tu es bien un robot. Pour ça rien de plus simple ! Je vais écrire des questions au tableau et tu devras y répondre.</p>
             <p><span class="emphasize">Attention !</span> Si tu fais 2 fautes j'appelerais le service anti-humains pour qu'ils t'emmènent.</p>
-            <button class="next interaction boutons">Bien reçu</button>
+            <button class="next boutons">Bien reçu</button>
         </div>
         <img id="marchandFirstPlan" src="images/marchand0.png" alt="robot marchand" />
     </section>
-    <div id="mainPart">
+    <section id="mainPartSection">
         <section id="leftSideBarre" class="sideBarre">
             <div id="toDoList">
                 <h2>To Do List</h2>
@@ -79,7 +79,7 @@
             <audio id="goodSound" src="audio/true.wav"></audio>
         </section>
         <section id="rightSideBarre" class="sideBarre">
-            <div id="compteRebours">
+            <div id="countdown">
                 <p>05:00</p>
             </div>
             <div id="inventory">
@@ -94,11 +94,10 @@
                 </div>
             </div>
         </section>
-    </div>
+    </section>
     <div id="endMessage">
-
     </div>
-    <audio id="musique" src="audio/8Bit-Untitled 01.mp3"></audio>
+    <audio id="music" src="audio/8Bit-Untitled 01.mp3"></audio>
     <audio id="endMusic"></audio>
     <script src="js/script.js"></script>
 </body>
